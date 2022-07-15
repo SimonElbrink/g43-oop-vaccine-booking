@@ -2,6 +2,7 @@ package se.lexicon.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Booking {
 
@@ -16,13 +17,26 @@ public class Booking {
 
     public Booking(String id, LocalDateTime dateTime, double price, String administrator, String vaccineType, boolean vacant, Premises premises, Patient patient) {
         this.id = id;
-        this.dateTime = dateTime;
+        setDateTime(dateTime);
         this.price = price;
         this.administrator = administrator;
         this.vaccineType = vaccineType;
         this.vacant = vacant;
-        this.premises = premises;
+        setPremises(premises);
         this.patient = patient;
+    }
+
+    public Booking(LocalDateTime dateTime, double price, String administrator, String vaccineType, Premises premises) {
+        this(
+                UUID.randomUUID().toString(),
+                dateTime, price, administrator, vaccineType
+                ,true
+                ,premises,
+                null
+        );
+    }
+
+    public Booking() {
     }
 
     public String getId() {
@@ -38,6 +52,8 @@ public class Booking {
     }
 
     public void setDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) throw new IllegalArgumentException("DateTime not allowed to be null!");
+
         this.dateTime = dateTime;
     }
 
@@ -78,6 +94,8 @@ public class Booking {
     }
 
     public void setPremises(Premises premises) {
+        if (premises == null) throw new IllegalArgumentException("Premise not allowed to be null!");
+
         this.premises = premises;
     }
 
