@@ -2,6 +2,7 @@ package se.lexicon.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Patient {
 
@@ -14,11 +15,19 @@ public class Patient {
 
     public Patient(String id, String ssn, String firstName, String lastName, LocalDate birthDate, ContactInfo contactInfo) {
         this.id = id;
-        this.ssn = ssn;
+        setSsn(ssn);
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.contactInfo = contactInfo;
+    }
+
+    public Patient(String ssn, String firstName, String lastName, LocalDate birthDate, ContactInfo contactInfo) {
+        this(UUID.randomUUID().toString(),
+                ssn,firstName,lastName,birthDate,contactInfo);
+    }
+
+    public Patient() {
     }
 
     public String getId() {
@@ -34,6 +43,7 @@ public class Patient {
     }
 
     public void setSsn(String ssn) {
+        if (ssn == null) throw new IllegalArgumentException("ssn not allowed to be null!");
         this.ssn = ssn;
     }
 
