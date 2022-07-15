@@ -1,6 +1,7 @@
 package se.lexicon.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class ContactInfo {
 
@@ -11,9 +12,18 @@ public class ContactInfo {
 
     public ContactInfo(String id, String email, String phone, String address) {
         this.id = id;
-        this.email = email;
-        this.phone = phone;
+        setEmail(email);
+        setPhone(phone);
         this.address = address;
+    }
+
+    public ContactInfo(String email, String phone, String address) {
+        this(UUID.randomUUID().toString(),
+                email,phone,address
+                );
+    }
+
+    public ContactInfo() {
     }
 
     public String getId() {
@@ -29,6 +39,7 @@ public class ContactInfo {
     }
 
     public void setEmail(String email) {
+        if (email == null) throw new IllegalArgumentException("email not allowed to be null!");
         this.email = email;
     }
 
@@ -37,6 +48,7 @@ public class ContactInfo {
     }
 
     public void setPhone(String phone) {
+        if (phone == null) throw new IllegalArgumentException("phone not allowed to be null!");
         this.phone = phone;
     }
 
